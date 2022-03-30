@@ -15,7 +15,10 @@ function Login(props) {
 		emailError: "",
 		passwordError: "",
 	});
-	const [buttonDisabled, setButtonDisabled] = useState(true);
+	const [flag, setFlag] = useState({
+		buttonDisabled: true,
+		showHidePassword: true,
+	});
 	const handleChange = (event) => {
 		let element = event.target.id;
 		let elementError = element + "Error";
@@ -36,6 +39,13 @@ function Login(props) {
 		});
 	};
 
+	const showHidePassword = () => {
+		setFlag({
+			...flag,
+			showHidePassword: !flag.showHidePassword,
+		});
+	};
+
 	const submitForm = (event) => {
 		event.preventDefault();
 		console.log(loginForm);
@@ -48,9 +58,15 @@ function Login(props) {
 			loginFormError.emailError !== "" &&
 			loginFormError.passwordError !== ""
 		) {
-			setButtonDisabled(false);
+			setFlag({
+				...flag,
+				buttonDisabled: false,
+			});
 		} else {
-			setButtonDisabled(true);
+			setFlag({
+				...flag,
+				buttonDisabled: true,
+			});
 		}
 	}, [loginFormError]);
 
@@ -79,11 +95,12 @@ function Login(props) {
 					</div>
 				</div>
 				<div className="mb-3">
-					<label htmlFor="password" className="form-label">
+					<label htmlFor="password" style={{ display: "block" }} className="form-label">
 						Password
 					</label>
 					<input
-						type="password"
+						type={flag.showHidePassword ? "password" : "text"}
+						style={{ display: "inline-block", width: "94%" }}
 						className={`form-control ${
 							patterns.password.test(loginForm.password) || loginFormError.passwordError == ""
 								? ""
@@ -93,11 +110,16 @@ function Login(props) {
 						value={loginForm.password}
 						onChange={handleChange}
 					/>
+					<i
+						style={{ padding: "0.6em", border: "1px solid #c4c4c4", cursor: "pointer" }}
+						className="fa-solid fa-eye-slash"
+						onClick={showHidePassword}
+					></i>
 					<div id="passwordError" className="form-text text-danger">
 						{loginFormError.passwordError}
 					</div>
 				</div>
-				<button type="submit" className="btn btn-primary my-3" disabled={buttonDisabled}>
+				<button type="submit" className="btn btn-primary my-3" disabled={flag.buttonDisabled}>
 					Submit
 				</button>
 			</form>
