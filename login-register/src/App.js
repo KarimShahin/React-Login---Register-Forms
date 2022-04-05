@@ -6,16 +6,16 @@ import Register from "./Register/Register";
 import { useState } from "react";
 
 function App() {
-	const [toogleFlag, setToogleFlag] = useState(true);
-	const toogle = () => {
-		setToogleFlag(!toogleFlag);
+	const [toggleFlag, setToggleFlag] = useState(true);
+	const toggle = () => {
+		setToggleFlag(!toggleFlag);
 	};
 	return (
 		<>
-			<button className="btn btn-success my-3 toogle" onClick={toogle}>
-				toogle
+			<button className="btn btn-success my-3 toogle" onClick={toggle}>
+				toggle
 			</button>
-			{toogleFlag ? <Login></Login> : <Register></Register>}
+			{toggleFlag ? <Login></Login> : <Register></Register>}
 		</>
 	);
 }
