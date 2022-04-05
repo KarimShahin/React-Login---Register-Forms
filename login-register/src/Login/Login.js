@@ -93,6 +93,7 @@ function Login(props) {
 						value={loginForm.password}
 						onChange={handleChange}
 					/>
+					{/* <i className="fa-solid fa-eye-slash"></i> */}
 					<div id="passwordError" className="form-text text-danger">
 						{loginFormError.passwordError}
 					</div>
